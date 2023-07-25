@@ -52,5 +52,5 @@ fileprivate func uniffiForeignExecutorCallback(executorHandle: Int, delayMs: UIn
 }
 
 fileprivate func uniffiInitForeignExecutor() {
-    uniffi_foreign_executor_callback_set(uniffiForeignExecutorCallback)
+    uniffi_foreign_executor_callback_set_alt(uniffiForeignExecutorCallback)
 }

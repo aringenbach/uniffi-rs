@@ -32,7 +32,7 @@ public object FfiConverterForeignExecutor: FfiConverter<CoroutineScope, USize> {
     }
 
     internal fun register(lib: _UniFFILib) {
-        lib.uniffi_foreign_executor_callback_set(UniFfiForeignExecutorCallback)
+        lib.uniffi_foreign_executor_callback_set_alt(UniFfiForeignExecutorCallback)
     }
 
     // Number of live handles, exposed so we can test the memory management

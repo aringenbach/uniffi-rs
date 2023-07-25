@@ -58,7 +58,7 @@ static FOREIGN_EXECUTOR_CALLBACK: AtomicUsize = AtomicUsize::new(0);
 /// Set the global ForeignExecutorCallback.  This is called by the foreign bindings, normally
 /// during initialization.
 #[no_mangle]
-pub extern "C" fn uniffi_foreign_executor_callback_set(callback: ForeignExecutorCallback) {
+pub extern "C" fn uniffi_foreign_executor_callback_set_alt(callback: ForeignExecutorCallback) {
     FOREIGN_EXECUTOR_CALLBACK.store(callback as usize, Ordering::Relaxed);
 }
 
@@ -271,7 +271,7 @@ mod test {
             };
             // Setup a callback to handle our handles
             MOCK_EXECUTOR_INIT
-                .call_once(|| uniffi_foreign_executor_callback_set(mock_executor_callback));
+                .call_once(|| uniffi_foreign_executor_callback_set_alt(mock_executor_callback));
 
             Self {
                 calls,

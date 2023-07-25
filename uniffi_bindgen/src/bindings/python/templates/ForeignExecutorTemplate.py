@@ -39,4 +39,4 @@ def uniffi_executor_callback(eventloop_address, delay, task_ptr, task_data):
             eventloop.call_soon_threadsafe(eventloop.call_later, delay / 1000.0, callback, task_data)
 
 # Register the callback with the scaffolding
-_UniFFILib.uniffi_foreign_executor_callback_set(uniffi_executor_callback)
+_UniFFILib.uniffi_foreign_executor_callback_set_alt(uniffi_executor_callback)

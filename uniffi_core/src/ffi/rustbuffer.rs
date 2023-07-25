@@ -205,10 +205,10 @@ impl Default for RustBuffer {
 
 /// This helper allocates a new byte buffer owned by the Rust code, and returns it
 /// to the foreign-language code as a `RustBuffer` struct. Callers must eventually
-/// free the resulting buffer, either by explicitly calling [`uniffi_rustbuffer_free`] defined
+/// free the resulting buffer, either by explicitly calling [`uniffi_rustbuffer_free_alt`] defined
 /// below, or by passing ownership of the buffer back into Rust code.
 #[no_mangle]
-pub extern "C" fn uniffi_rustbuffer_alloc(
+pub extern "C" fn uniffi_rustbuffer_alloc_alt(
     size: i32,
     call_status: &mut RustCallStatus,
 ) -> RustBuffer {
@@ -226,7 +226,7 @@ pub extern "C" fn uniffi_rustbuffer_alloc(
 /// This function will dereference a provided pointer in order to copy bytes from it, so
 /// make sure the `ForeignBytes` struct contains a valid pointer and length.
 #[no_mangle]
-pub unsafe extern "C" fn uniffi_rustbuffer_from_bytes(
+pub unsafe extern "C" fn uniffi_rustbuffer_from_bytes_alt(
     bytes: ForeignBytes,
     call_status: &mut RustCallStatus,
 ) -> RustBuffer {
@@ -243,7 +243,10 @@ pub unsafe extern "C" fn uniffi_rustbuffer_from_bytes(
 /// into the Rust code that returned a buffer, or you'll risk freeing unowned memory or
 /// corrupting the allocator state.
 #[no_mangle]
-pub unsafe extern "C" fn uniffi_rustbuffer_free(buf: RustBuffer, call_status: &mut RustCallStatus) {
+pub unsafe extern "C" fn uniffi_rustbuffer_free_alt(
+    buf: RustBuffer,
+    call_status: &mut RustCallStatus,
+) {
     rust_call(call_status, || {
         RustBuffer::destroy(buf);
         Ok(())
@@ -266,7 +269,7 @@ pub unsafe extern "C" fn uniffi_rustbuffer_free(buf: RustBuffer, call_status: &m
 /// into the Rust code that returned a buffer, or you'll risk freeing unowned memory or
 /// corrupting the allocator state.
 #[no_mangle]
-pub unsafe extern "C" fn uniffi_rustbuffer_reserve(
+pub unsafe extern "C" fn uniffi_rustbuffer_reserve_alt(
     buf: RustBuffer,
     additional: i32,
     call_status: &mut RustCallStatus,
